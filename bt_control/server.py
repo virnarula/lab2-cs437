@@ -1,7 +1,7 @@
 import bluetooth
 import threading
 import time
-# import picar_4wd as fc
+import picar_4wd as fc
 
 # hostMACAddress = "E4:5F:01:3C:05:37" # The address of Raspberry PI Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.
 # port = 1
@@ -26,6 +26,7 @@ import time
 
 client = None
 msg_size = 1024
+speed = 10
 
 def send_telemetry():
     while True:
@@ -43,14 +44,19 @@ def receive_controls():
         decoded = data.decode('utf8', 'strict')
         if decoded == 'f':
             print("Going forward")
+            fc.forward(speed)
         elif decoded == 's':
             print("Stopping")
+            fc.stop()
         elif decoded == 'l':
             print("Going left")
+            fc.turn_left(speed)
         elif decoded == 'r':
             print("Going right")
+            fc.turn_right(speed)
         elif decoded == 'b':
             print("Going back")
+            fc.backward(speed)
         
         else:
             print("\ncould not decode from server: ", decoded)
