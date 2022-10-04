@@ -30,7 +30,8 @@ speed = 10
 
 def send_telemetry():
     while True:
-        data = "This is telemetry info"
+        data = "Left speed: " + str(fc.left_rear_speed()) \
+            + " Right Speed: " + str(fc.right_read_speed())
         client.send(data)
         time.sleep(3)
     pass
