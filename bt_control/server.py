@@ -31,16 +31,29 @@ def send_telemetry():
     while True:
         data = "This is telemetry info"
         client.send(data)
-        time.sleep(1)
+        time.sleep(3)
     pass
 
 def receive_controls():
     while True:
         data = client.recv(msg_size)
-        if data:
-            print(data)
-            print(type(data))
-    pass
+        if not data:
+            break
+
+        decoded = data.decode('utf8', 'strict')
+        if decoded == 'f':
+            print("Going forward")
+        elif decoded == 's':
+            print("Stopping")
+        elif decoded == 'l':
+            print("Going left")
+        elif decoded == 'r':
+            print("Going right")
+        elif decoded == 'b':
+            print("Going back")
+        
+        else:
+            print("\ncould not decode from server: ", decoded)
 
 if __name__ == "__main__":
     hostMACAddress = "E4:5F:01:3C:05:37" # The address of Raspberry PI Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.

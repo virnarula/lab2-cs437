@@ -31,9 +31,11 @@ def send_controls():
 def receive_stats():
     while True:
         data = sock.recv(1024)
-        print("\nfrom server: ", data)
         if not data:
             break
+
+        decoded = data.decode('utf8', 'strict')
+        print("\nFrom server: ", decoded)
 
 
 if __name__ == "__main__":
