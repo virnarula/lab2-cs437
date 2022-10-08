@@ -3,35 +3,13 @@ import threading
 import time
 import picar_4wd as fc
 
-# hostMACAddress = "E4:5F:01:3C:05:37" # The address of Raspberry PI Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.
-# port = 1
-# backlog = 1
-# size = 1024
-# s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-# s.bind((hostMACAddress, port))
-# s.listen(backlog)
-# print("listening on port ", port)
-# try:
-#     client, clientInfo = s.accept()
-#     while 1:   
-#         print("server recv from: ", clientInfo)
-#         data = client.recv(size)
-#         if data:
-#             print(data)
-#             client.send(data) # Echo back to client
-# except: 
-#     print("Closing socket")
-#     client.close()
-#     s.close()
-
 client = None
 msg_size = 1024
 speed = 10
 
 def send_telemetry():
     while True:
-        data = "Left speed: " + str(fc.left_rear_speed()) \
-            + " Right Speed: " + str(fc.right_read_speed())
+        data = str(fc.pi_read())
         client.send(data)
         time.sleep(3)
     pass
